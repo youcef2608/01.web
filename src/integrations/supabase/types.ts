@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      email_verification_codes: {
+        Row: {
+          user_id: string
+          code_hash: string
+          expires_at: string
+          last_sent_at: string
+          created_at: string
+        }
+        Insert: {
+          user_id: string
+          code_hash: string
+          expires_at: string
+          last_sent_at?: string
+          created_at?: string
+        }
+        Update: {
+          user_id?: string
+          code_hash?: string
+          expires_at?: string
+          last_sent_at?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
       initiative_memory: {
         Row: {
           created_at: string
@@ -94,6 +118,7 @@ export type Database = {
           email: string | null
           full_name: string | null
           id: string
+          is_verified: boolean
           location: string | null
           skills: string | null
         }
@@ -102,6 +127,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id: string
+          is_verified?: boolean
           location?: string | null
           skills?: string | null
         }
@@ -110,6 +136,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          is_verified?: boolean
           location?: string | null
           skills?: string | null
         }

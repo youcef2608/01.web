@@ -5,6 +5,7 @@ CREATE TABLE public.profiles (
   email text,
   skills text,
   location text,
+  is_verified boolean NOT NULL DEFAULT false,
   created_at timestamptz NOT NULL DEFAULT now()
 );
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO authenticated;
@@ -17,12 +18,22 @@ CREATE POLICY "own profile update" ON public.profiles FOR UPDATE TO authenticate
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, email)
-  VALUES (NEW.id, COALESCE(NEW.raw_user_meta_data->>'full_name', ''), NEW.email)
+  INSERT INTO public.profiles (id, full_name, email, location, skills, is_verified)
+  VALUES (NEW.id, COALESCE(NEW.raw_user_meta_data->>'full_name', ''), NEW.email, NEW.raw_user_meta_data->>'location', NEW.raw_user_meta_data->>'skills', false)
   ON CONFLICT (id) DO NOTHING;
   RETURN NEW;
 END;
 $$;
+
+CREATE TABLE public.email_verification_codes (
+  user_id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  code_hash text NOT NULL,
+  expires_at timestamptz NOT NULL,
+  last_sent_at timestamptz NOT NULL DEFAULT now(),
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT ALL ON public.email_verification_codes TO service_role;
+ALTER TABLE public.email_verification_codes ENABLE ROW LEVEL SECURITY;
 CREATE TRIGGER on_auth_user_created
 AFTER INSERT ON auth.users
 FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
