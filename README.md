@@ -196,7 +196,20 @@ Ran terminal command: git fetch origin main; git push -u origin main --force-wit
 
 Ran terminal command: git ls-tree HEAD 01.web; git status --short --branch
 
-Made changes.
+Made changes.                         # 1. استنساخ المستودع الموحد
+git clone https://github.com/youcef2608/02.app.git
+cd 02.app
+
+# 2. إعداد الموقع (في المجلد الجذر)
+npm install
+Copy-Item .env.example .env
+# ضع مفاتيح Supabase و Resend في .env
+npm run dev
+
+# 3. إعداد التطبيق Android (اختياري)
+cd android
+# افتح في Android Studio أو شغّل:
+# ./gradlew build (إذا كان gradlew موجودًا)
 ```powershell
 npm run build
 npm run preview
