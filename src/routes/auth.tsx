@@ -34,6 +34,7 @@ function AuthPage() {
   const [fullName, setFullName] = useState("");
   const [location, setLocation] = useState("");
   const [skills, setSkills] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [verificationStep, setVerificationStep] = useState(false);
@@ -65,7 +66,7 @@ function AuthPage() {
           password,
           options: {
             emailRedirectTo: window.location.origin,
-            data: { full_name: fullName, location, skills },
+            data: { full_name: fullName, location, skills, phone },
           },
         });
         if (error) throw error;
@@ -148,6 +149,10 @@ function AuthPage() {
                 <div className="space-y-2">
                   <Label htmlFor="skills">المهارات</Label>
                   <Input id="skills" value={skills} onChange={(e) => setSkills(e.target.value)} placeholder="تنظيم، تصميم، إعلام" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">رقم الهاتف</Label>
+                  <Input id="phone" type="tel" dir="ltr" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="05xxxxxxxx" required />
                 </div>
               </>
             )}

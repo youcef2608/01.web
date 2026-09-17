@@ -14,6 +14,46 @@ export type Database = {
   }
   public: {
     Tables: {
+      help_calls: {
+        Row: {
+          id: string
+          title: string
+          description: string
+          category: string
+          urgency: string
+          status: string
+          latitude: number
+          longitude: number
+          location_name: string | null
+          requester_id: string
+          author_name: string
+          author_phone: string | null
+          volunteer_id: string | null
+          helper_name: string | null
+          created_at: string
+          completed_at: string | null
+        }
+        Insert: {
+          id?: string
+          title: string
+          description: string
+          category?: string
+          urgency?: string
+          status?: string
+          latitude?: number
+          longitude?: number
+          location_name?: string | null
+          requester_id: string
+          author_name: string
+          author_phone?: string | null
+          volunteer_id?: string | null
+          helper_name?: string | null
+          created_at?: string
+          completed_at?: string | null
+        }
+        Update: Partial<Database["public"]["Tables"]["help_calls"]["Insert"]>
+        Relationships: []
+      }
       email_verification_codes: {
         Row: {
           user_id: string
@@ -119,6 +159,7 @@ export type Database = {
           full_name: string | null
           id: string
           is_verified: boolean
+          phone: string | null
           location: string | null
           skills: string | null
         }
@@ -128,6 +169,7 @@ export type Database = {
           full_name?: string | null
           id: string
           is_verified?: boolean
+          phone?: string | null
           location?: string | null
           skills?: string | null
         }
@@ -137,6 +179,7 @@ export type Database = {
           full_name?: string | null
           id?: string
           is_verified?: boolean
+          phone?: string | null
           location?: string | null
           skills?: string | null
         }

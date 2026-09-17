@@ -1,0 +1,6 @@
+{
+  "name": "لمّة",
+  "description": "تطبيق لربط المتطوعين بطلبات المساعدة في الوقت الفعلي بنظام تحفيز اجتماعي غير مادي",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

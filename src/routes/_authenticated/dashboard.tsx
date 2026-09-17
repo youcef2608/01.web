@@ -31,6 +31,8 @@ function Dashboard() {
   const { user } = Route.useRouteContext();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+  const [callOpen, setCallOpen] = useState(false);
+  const [callForm, setCallForm] = useState({ title: "", description: "", category: "other", urgency: "medium" });
   const [form, setForm] = useState({
     name: "",
     category: CATEGORIES[0],
@@ -114,6 +116,27 @@ function Dashboard() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const createHelpCall = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("help_calls").insert({
+        title: callForm.title,
+        description: callForm.description,
+        category: callForm.category,
+        urgency: callForm.urgency,
+        requester_id: user.id,
+        author_name: user.user_metadata?.full_name ?? user.email ?? "",
+        author_phone: user.user_metadata?.phone ?? null,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      toast.success("تم نشر النداء وسيظهر في تطبيق لمّة");
+      setCallOpen(false);
+      setCallForm({ title: "", description: "", category: "other", urgency: "medium" });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <AppHeader email={user.email} />
@@ -128,7 +151,27 @@ function Dashboard() {
             <Plus className="h-4 w-4" />
             مبادرة جديدة
           </Button>
+          <Button variant="outline" onClick={() => setCallOpen((v) => !v)}>
+            نشر نداء مساعدة
+          </Button>
         </div>
+
+        {callOpen && (
+          <form className="mt-6 rounded-2xl border border-clay/30 bg-sand/60 p-6" onSubmit={(e) => { e.preventDefault(); createHelpCall.mutate(); }}>
+            <h2 className="font-display text-xl font-bold">نشر نداء يصل إلى تطبيق لمّة</h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <Input required placeholder="عنوان النداء" value={callForm.title} onChange={(e) => setCallForm({ ...callForm, title: e.target.value })} />
+              <select className={selectClass} value={callForm.category} onChange={(e) => setCallForm({ ...callForm, category: e.target.value })}>
+                <option value="delivery">توصيل</option><option value="companionship">مرافقة</option><option value="education">مساعدة تعليمية</option><option value="moving">نقل أغراض</option><option value="other">أخرى</option>
+              </select>
+              <select className={selectClass} value={callForm.urgency} onChange={(e) => setCallForm({ ...callForm, urgency: e.target.value })}>
+                <option value="low">منخفض</option><option value="medium">متوسط</option><option value="urgent">عاجل</option>
+              </select>
+              <Textarea required placeholder="اشرح ما تحتاجه" value={callForm.description} onChange={(e) => setCallForm({ ...callForm, description: e.target.value })} />
+            </div>
+            <Button className="mt-4" type="submit" disabled={createHelpCall.isPending}>{createHelpCall.isPending ? "جارٍ النشر..." : "نشر النداء"}</Button>
+          </form>
+        )}
 
         {open && (
           <div className="mt-6 grid gap-5 lg:grid-cols-[1.4fr_1fr]">

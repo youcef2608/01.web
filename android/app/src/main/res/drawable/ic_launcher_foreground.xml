@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Centered within 66dp safe zone (approx bounds x: 21-87, y: 21-87) -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54">
+        <!-- Resonance Echo Wave Arc Left -->
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M33,40 C28,48 28,60 33,68"
+            android:strokeColor="#80CBC4"
+            android:strokeLineCap="round"
+            android:strokeWidth="3" />
+        <!-- Resonance Echo Wave Arc Right -->
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M75,40 C80,48 80,60 75,68"
+            android:strokeColor="#80CBC4"
+            android:strokeLineCap="round"
+            android:strokeWidth="3" />
+        <!-- Inner Echo Wave Arc Left -->
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M39,46 C36,51 36,57 39,62"
+            android:strokeColor="#B2DFDB"
+            android:strokeLineCap="round"
+            android:strokeWidth="2.5" />
+        <!-- Inner Echo Wave Arc Right -->
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M69,46 C72,51 72,57 69,62"
+            android:strokeColor="#B2DFDB"
+            android:strokeLineCap="round"
+            android:strokeWidth="2.5" />
+
+        <!-- Golden Amber Central Kind Heart (Symbol of Mutual Aid) -->
+        <path
+            android:fillColor="#FFCA28"
+            android:pathData="M54,49.5 C51,44 43,44 43,51 C43,56.5 54,64 54,64 C54,64 65,56.5 65,51 C65,44 57,44 54,49.5 Z" />
+
+        <!-- Caring Hands Silhouette (Holding / Supporting) -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M54,77 C48,77 42.5,74 38,69.5 C36.5,68 37,65.5 39,64.5 C40.8,63.5 42.8,64 44.2,65.2 C47,67.8 50.5,69 54,69 C57.5,69 61,67.8 63.8,65.2 C65.2,64 67.2,63.5 69,64.5 C71,65.5 71.5,68 70,69.5 C65.5,74 60,77 54,77 Z" />
+        
+        <!-- Glowing spark above heart -->
+        <path
+            android:fillColor="#FFE082"
+            android:pathData="M54,36 L55.5,40 L59.5,41.5 L55.5,43 L54,47 L52.5,43 L48.5,41.5 L52.5,40 Z" />
+    </group>
+</vector>
