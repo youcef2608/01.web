@@ -14,7 +14,183 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      initiative_memory: {
+        Row: {
+          created_at: string
+          id: string
+          initiative_id: string
+          tag: string | null
+          text: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          initiative_id: string
+          tag?: string | null
+          text: string
+          type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          initiative_id?: string
+          tag?: string | null
+          text?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "initiative_memory_initiative_id_fkey"
+            columns: ["initiative_id"]
+            isOneToOne: false
+            referencedRelation: "initiatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      initiatives: {
+        Row: {
+          category: string
+          created_at: string
+          creator_id: string
+          date: string | null
+          description: string | null
+          goal: string | null
+          id: string
+          location: string | null
+          name: string
+          status: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          creator_id?: string
+          date?: string | null
+          description?: string | null
+          goal?: string | null
+          id?: string
+          location?: string | null
+          name: string
+          status?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          creator_id?: string
+          date?: string | null
+          description?: string | null
+          goal?: string | null
+          id?: string
+          location?: string | null
+          name?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          location: string | null
+          skills: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          location?: string | null
+          skills?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          location?: string | null
+          skills?: string | null
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          category: string | null
+          created_at: string
+          id: string
+          initiative_id: string
+          name: string
+          status: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          initiative_id: string
+          name: string
+          status?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          initiative_id?: string
+          name?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_initiative_id_fkey"
+            columns: ["initiative_id"]
+            isOneToOne: false
+            referencedRelation: "initiatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      volunteer_requests: {
+        Row: {
+          created_at: string
+          id: string
+          initiative_id: string
+          name: string
+          skill: string | null
+          status: string
+          task: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          initiative_id: string
+          name: string
+          skill?: string | null
+          status?: string
+          task?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          initiative_id?: string
+          name?: string
+          skill?: string | null
+          status?: string
+          task?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "volunteer_requests_initiative_id_fkey"
+            columns: ["initiative_id"]
+            isOneToOne: false
+            referencedRelation: "initiatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
