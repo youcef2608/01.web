@@ -106,13 +106,40 @@ Continue developing this project in the [Lovable editor](https://lovable.dev/pro
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.
 - **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
-## Development
+## التشغيل على حاسوب جديد
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+المتطلبات: Node.js 20 أو أحدث و npm.
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```powershell
+git clone https://github.com/youcef2608/01.web.git
+cd 01.web
+npm install
+Copy-Item .env.example .env
 npm run dev
+```
+
+افتح الرابط الذي يظهر في الطرفية، غالبًا `http://localhost:5173`.
+
+### إعداد Supabase وResend
+
+ضع القيم الحقيقية في `.env` المحلي فقط. لا ترفع هذا الملف إلى GitHub.
+
+```env
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+RESEND_API_KEY=your-resend-api-key
+RESEND_FROM_EMAIL=أثر <verified@example.com>
+```
+
+طبّق ملفات SQL الموجودة في `drizzle/migrations` على مشروع Supabase بالترتيب. يجب أن يكون عنوان المرسل في Resend موثقًا. فعّل جلسات البريد في Supabase حتى يستطيع المستخدم إكمال تحقق OTP المخصص داخل أثر.
+
+لا تحتاج إلى إنشاء مشروع Supabase جديد عند استخدام حاسوب آخر؛ استخدم نفس `SUPABASE_URL` والمفاتيح، وستبقى البيانات والمستخدمون كما هي.
+
+لإنشاء نسخة إنتاجية:
+
+```powershell
+npm run build
+npm run preview
 ```
